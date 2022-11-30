@@ -20,6 +20,7 @@ class AdminController extends Controller
      * Obtener el objeto User como json
      */
     public function user(Request $request)
+    
     {
 
         return response()->json($request->user());
