@@ -20,9 +20,11 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
+            'apellidop'=>'string',
+            'apellidom'=>'string',
+            'email' => 'required|email:strict|unique:users,email',
             'password' => 'required|string',
-            'permisosu' => 'required|boolean'
+            'permisosug' => 'required|string'
         ]);
 
         $permiso='permisos';
@@ -43,24 +45,35 @@ class AuthController extends Controller
                 return response()->json([
                     'message'=>'el usuario ya fue registrado'
                 ]);
+            
             }*/
-            if($request->permisosu=true){
+            $permitido = DB::table('permisos')
+            ->select('nombre')
+            ->where('nombre','=',$request->permisosug)
+            ->get();
+            if(!count($permitido)<=0){
+
                 $permiso='asignar';
-            }else 
-            if ($request->permisosu=false){
-                $permiso='noasignar';
-            }
         User::create([
             'name' => $request->name,
+            'apellidop' => $request->apellidop,
+            'apellidom' => $request->apellidom,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'permisosu' => $permiso
+            'permisosu' => $permiso,
+            'permisossug' => $request->permisosug
         ]);
     
 
         return response()->json([
-            'message' => 'usuario creado'
+            'message' => 'solicitud enviada'
         ], 201);
+    }else{
+        return response()->json([
+            'message' => 'permisos indicados no encontrados'
+        ], 200);
+    }
+
     }
     
     /**

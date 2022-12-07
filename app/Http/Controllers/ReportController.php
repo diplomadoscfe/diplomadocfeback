@@ -46,6 +46,15 @@ class ReportController extends Controller
 }
     
 }
+public function powermenu(Request $request){
+    
+    
+        $reporteplan = DB::table('planreportes')
+        ->select('tipoP','reporte')
+        ->get();
+
+        return response()->json($reporteplan, 200);          
+}
 
 public function powerrepor(Request $request){
     $request->validate([

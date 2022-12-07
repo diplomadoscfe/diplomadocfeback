@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DiplomaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +39,17 @@ Route::group([
     Route::get('reporte5',[ReportController::class, 'reporte5']);
     Route::get('reporte6',[ReportController::class, 'reporte6']);
     Route::get('reporte7',[ReportController::class, 'reporte7']);   
-     Route::get('reporte8',[ReportController::class, 'reporte8']);
+    Route::get('reporte8',[ReportController::class, 'reporte8']);
+    Route::get('usuarioGuardar',[AdminController::class, 'usuarioGuardar']);
+    Route::get('inicioDiplomado',[DiplomaController::class, 'inicioDiplomado']);
+    Route::get('powermenu',[ReportController::class, 'powermenu']);
+    Route::get('permisosad',[AdminController::class, 'permisosad']);
+    Route::get('adregistros',[AdminController::class, 'adregistros']);
+    Route::post('insertarfoto',[DiplomaController::class, 'insertarfoto']);
 
+
+
+    Route::get('adminguardarprueba',[AdminController::class, 'adminguardarprueba']);
     Route::group([
         'middleware' => 'auth:api'
     ], function(){
